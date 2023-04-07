@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

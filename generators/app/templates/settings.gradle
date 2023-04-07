@@ -1,0 +1,4 @@
+rootProject.name = '<%= name %>'
+include 'demo-server'
+include 'demo-api'
+include 'demo-client'

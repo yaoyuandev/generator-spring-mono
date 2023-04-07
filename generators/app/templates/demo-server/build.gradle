@@ -1,0 +1,7 @@
+plugins {
+    id 'spring-web'
+}
+
+dependencies {
+    implementation project(':demo-api')
+}

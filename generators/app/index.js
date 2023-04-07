@@ -2,6 +2,7 @@
 const Generator = require("yeoman-generator");
 const chalk = require("chalk");
 const yosay = require("yosay");
+const path = require("path");
 
 module.exports = class extends Generator {
   prompting() {
@@ -16,10 +17,10 @@ module.exports = class extends Generator {
 
     const prompts = [
       {
-        type: "confirm",
-        name: "someAnswer",
-        message: "Would you like to enable this option?",
-        default: true
+        type: "input",
+        name: "name",
+        message: "Your project name",
+        default: path.basename(process.cwd())
       }
     ];
 
@@ -30,13 +31,16 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
-      this.templatePath("dummyfile.txt"),
-      this.destinationPath("dummyfile.txt")
+    this.fs.copyTpl(
+      this.templatePath("settings.gradle"),
+      this.destinationPath("settings.gradle"),
+      {
+        name: this.props.name
+      }
     );
-  }
-
-  install() {
-    this.installDependencies();
+    const plain = ["buildSrc", "demo-api", "demo-server", "demo-client"];
+    plain.forEach(it => {
+      this.fs.copy(this.templatePath(it), this.destinationPath(it));
+    });
   }
 };
